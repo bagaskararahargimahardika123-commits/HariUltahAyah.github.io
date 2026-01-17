@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Untuk Ayah</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ===== LOADING ===== */
+#loading {
+    position: fixed;
+    inset: 0;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.loading-text {
+    color: red;
+    letter-spacing: 4px;
+    margin-bottom: 14px;
+    text-shadow: 0 0 10px red;
+    animation: blink 1.2s infinite;
+}
+
+.loading-box {
+    width: 320px;
+    height: 16px;
+    background: #1a0000;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.loading-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ff0000, #ff4d4d, #ff0000);
+    border-radius: 20px;
+}
+
+/* ===== PAGE 1 (Hitam Merah) ===== */
+#page1 {
+    display: none;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #000, #3b0000, #b00000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1.2s ease;
+}
+
+.page-title {
+    color: red;
+    text-shadow: 0 0 18px red;
+    font-size: 32px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* ===== PAGE 2 (Hitam) ===== */
+#page2 {
+    display: none;
+    min-height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message {
+    color: red;                 /* SAMA WARNA */
+    text-shadow: 0 0 18px red;   /* SAMA GLOW */
+    font-size: 32px;             /* SAMA UKURAN */
+    text-align: center;
+    line-height: 1.4;
+    opacity: 0;
+    animation: zoomFade 1.5s ease forwards;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomFade {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loading">
+    <div>
+        <div class="loading-text">LOADING...</div>
+        <div class="loading-box">
+            <div class="loading-bar" id="bar"></div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 1 -->
+<div id="page1">
+    <div class="page-title">
+        Selamat Ulang Tahun<br>Ayah Erlang
+    </div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2">
+    <div class="message">
+        Semoga Panjang Umur Ya Ayah,<br>
+        Sehat Selalu
+    </div>
+</div>
+
+<script>
+let bar = document.getElementById("bar");
+let loading = document.getElementById("loading");
+let page1 = document.getElementById("page1");
+let page2 = document.getElementById("page2");
+
+let progress = 0;
+let duration = 10000;
+let interval = 100;
+let step = 100 / (duration / interval);
+
+let loadingInterval = setInterval(() => {
+    progress += step;
+    bar.style.width = progress + "%";
+
+    if (progress >= 100) {
+        clearInterval(loadingInterval);
+        loading.style.display = "none";
+        page1.style.display = "flex";
+
+        setTimeout(() => {
+            page1.style.display = "none";
+            page2.style.display = "flex";
+        }, 3000);
+    }
+}, interval);
+</script>
+
+</body>
+</html>
